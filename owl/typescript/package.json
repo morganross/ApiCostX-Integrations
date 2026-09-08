@@ -1,0 +1,14 @@
+{
+  "name": "@apicostx/allie-owl",
+  "version": "0.1.0",
+  "description": "TypeScript SDK for the OpenAI-shaped Allie Owl chatbot API",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist", "README.md", "LICENSE"],
+  "scripts": {"build": "tsc", "check": "tsc --noEmit", "test:syntax": "tsc --noEmit"},
+  "devDependencies": {"typescript": "^5.7.0"},
+  "engines": {"node": ">=18"},
+  "license": "MIT",
+  "keywords": ["apicostx", "allie", "owl", "chatbot", "openai-compatible"]
+}

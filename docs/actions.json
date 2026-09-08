@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "product": "allie-owl",
+  "actions": [
+    {
+      "name": "apicostx_list_content",
+      "operation": "GET /contents",
+      "category": "content",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_content",
+      "operation": "GET /contents/{content_id}",
+      "category": "content",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_create_content",
+      "operation": "POST /contents",
+      "category": "content",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_update_content",
+      "operation": "PUT /contents/{content_id}",
+      "category": "content",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_delete_content",
+      "operation": "DELETE /contents/{content_id}",
+      "category": "content",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_list_presets",
+      "operation": "GET /presets",
+      "category": "preset",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_preset",
+      "operation": "GET /presets/{preset_id}",
+      "category": "preset",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_validate_preset",
+      "operation": "GET /presets/{preset_id}/runnable",
+      "category": "preset",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_create_preset",
+      "operation": "POST /presets",
+      "category": "preset",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_update_preset",
+      "operation": "PUT /presets/{preset_id}",
+      "category": "preset",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_delete_preset",
+      "operation": "DELETE /presets/{preset_id}",
+      "category": "preset",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_execute_preset",
+      "operation": "POST /presets/{preset_id}/execute",
+      "category": "preset",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_list_runs",
+      "operation": "GET /runs",
+      "category": "run",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_run",
+      "operation": "GET /runs/{run_id}",
+      "category": "run",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_run_logs",
+      "operation": "GET /runs/{run_id}/logs",
+      "category": "run",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_generated_output",
+      "operation": "GET /runs/{run_id}/generated/{doc_id}",
+      "category": "run",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_pause_run",
+      "operation": "POST /runs/{run_id}/pause",
+      "category": "run",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_resume_run",
+      "operation": "POST /runs/{run_id}/resume",
+      "category": "run",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_cancel_run",
+      "operation": "POST /runs/{run_id}/cancel",
+      "category": "run",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_list_models",
+      "operation": "GET /models",
+      "category": "model",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_usage",
+      "operation": "GET /assistant-usage",
+      "category": "usage",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_credits",
+      "operation": "GET /credits",
+      "category": "credits",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_duplicate_content",
+      "operation": "POST /contents/{content_id}/duplicate",
+      "category": "content",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_resolve_content",
+      "operation": "POST /contents/{content_id}/resolve",
+      "category": "content",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_duplicate_preset",
+      "operation": "POST /presets/{preset_id}/duplicate",
+      "category": "preset",
+      "write": true,
+      "confirmation": true
+    },
+    {
+      "name": "apicostx_get_resume_info",
+      "operation": "GET /runs/{run_id}/resume-info",
+      "category": "run",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_get_checkpoint",
+      "operation": "GET /runs/{run_id}/checkpoint",
+      "category": "run",
+      "write": false,
+      "confirmation": false
+    },
+    {
+      "name": "apicostx_delete_run",
+      "operation": "DELETE /runs/{run_id}",
+      "category": "run",
+      "write": true,
+      "confirmation": true
+    }
+  ]
+}
