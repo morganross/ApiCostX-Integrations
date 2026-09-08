@@ -1,4 +1,4 @@
-# APICostX API clients
+# ApiCostX-Integrations
 
 Official public clients for two separate APICostX products:
 
