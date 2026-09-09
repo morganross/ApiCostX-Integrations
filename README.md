@@ -102,3 +102,11 @@ publishing credentials belong in GitHub Actions secrets or trusted publishing.
 
 See [API boundaries](docs/api-boundaries.md), [backend client guide](docs/backend.md),
 and [Owl client guide](docs/owl.md).
+
+## Chatbot source
+
+The public chatbot source is under [`chatbot/`](chatbot/): the standalone Owl
+server, website assistant bridge and advanced graph, CopilotKit runtime,
+assistant knowledge/tool docs, and mascot assets. This source is included for
+transparency and development; deployment secrets and private infrastructure
+files are excluded.

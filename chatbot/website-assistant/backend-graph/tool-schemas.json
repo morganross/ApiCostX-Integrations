@@ -1,0 +1,834 @@
+{
+  "version": 1,
+  "tools": [
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_list_content",
+        "description": "List the authenticated user's APICostX content library.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "page_size": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "search": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "content_type": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_content",
+        "description": "Read one authenticated user's content item.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "content_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 12000
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "content_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_create_content",
+        "description": "Create user-owned APICostX content. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string",
+              "maxLength": 200
+            },
+            "content_type": {
+              "type": "string",
+              "maxLength": 80
+            },
+            "body": {
+              "type": "string",
+              "maxLength": 1000000
+            },
+            "description": {
+              "type": "string",
+              "maxLength": 1000
+            },
+            "folder_path": {
+              "type": "string",
+              "maxLength": 500
+            },
+            "tags": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "maxLength": 100
+              }
+            },
+            "variables": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "confirm",
+            "name",
+            "content_type",
+            "body"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_update_content",
+        "description": "Update user-owned APICostX content. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "content_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "patch": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "confirm",
+            "content_id",
+            "patch"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_delete_content",
+        "description": "Delete user-owned APICostX content. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "content_id": {
+              "type": "string",
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "confirm",
+            "content_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_list_presets",
+        "description": "List the authenticated user's saved presets.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "page_size": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_preset",
+        "description": "Read one authenticated user's preset.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "preset_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "preset_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_validate_preset",
+        "description": "Check whether an authenticated user's preset is currently runnable.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "preset_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "preset_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_create_preset",
+        "description": "Create a user-owned APICostX preset from a validated preset payload. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "preset": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "confirm",
+            "preset"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_update_preset",
+        "description": "Update a user-owned APICostX preset. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "preset_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "patch": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "confirm",
+            "preset_id",
+            "patch"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_delete_preset",
+        "description": "Delete a user-owned APICostX preset. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "preset_id": {
+              "type": "string",
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "confirm",
+            "preset_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_execute_preset",
+        "description": "Start an authenticated user's saved preset. Requires read_write API permission and explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "preset_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "confirm": {
+              "type": "boolean"
+            },
+            "idempotency_key": {
+              "type": "string",
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "preset_id",
+            "confirm"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_list_runs",
+        "description": "List the authenticated user's APICostX runs.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "page": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "page_size": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "status": {
+              "type": "string",
+              "maxLength": 40
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_run",
+        "description": "Read one authenticated user's run status and summary.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "run_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "run_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_pause_run",
+        "description": "Pause a user-owned APICostX run. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "run_id": {
+              "type": "string",
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "confirm",
+            "run_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_resume_run",
+        "description": "Resume a user-owned APICostX run. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "run_id": {
+              "type": "string",
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "confirm",
+            "run_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_cancel_run",
+        "description": "Cancel a user-owned APICostX run. Requires explicit confirmation.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "confirm": {
+              "type": "boolean"
+            },
+            "run_id": {
+              "type": "string",
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "confirm",
+            "run_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_run_logs",
+        "description": "Read bounded lifecycle or verbose logs for an authenticated user's run.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "run_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "classification": {
+              "type": "string",
+              "enum": [
+                "event",
+                "all"
+              ]
+            },
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 200
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "run_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_generated_output",
+        "description": "Read one generated output from an authenticated user's run.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "run_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "doc_id": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "max_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 12000
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "run_id",
+            "doc_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_list_models",
+        "description": "List APICostX models available to the authenticated user.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_usage",
+        "description": "Read the authenticated user's coarse assistant usage summary.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_credits",
+        "description": "Read the authenticated user's credit balance and spend summary.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_duplicate_content",
+        "description": "Duplicate an existing content item.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "content_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "confirm": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "content_id",
+            "confirm"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_resolve_content",
+        "description": "Preview content with runtime variables substituted.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "content_id": {
+              "type": "string"
+            },
+            "runtime_variables": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "content_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_duplicate_preset",
+        "description": "Duplicate a saved preset.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "preset_id": {
+              "type": "string"
+            },
+            "new_name": {
+              "type": "string"
+            },
+            "confirm": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "preset_id",
+            "new_name",
+            "confirm"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_resume_info",
+        "description": "Read run recovery eligibility and checkpoint summary.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "run_id": {
+              "type": "string"
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "run_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_get_checkpoint",
+        "description": "Read run task checkpoint counts.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "run_id": {
+              "type": "string"
+            },
+            "result_offset": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "result_chars": {
+              "type": "integer",
+              "minimum": 200,
+              "maximum": 4000
+            }
+          },
+          "required": [
+            "run_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    {
+      "type": "function",
+      "function": {
+        "name": "apicostx_delete_run",
+        "description": "Delete one user-owned run.",
+        "parameters": {
+          "type": "object",
+          "properties": {
+            "run_id": {
+              "type": "string"
+            },
+            "confirm": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "run_id",
+            "confirm"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  ]
+}
