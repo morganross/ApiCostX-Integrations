@@ -27,6 +27,8 @@ frontend security regressions, TypeScript/lint, standard prebuild checks and a
 successful production bundle. The expanded backend API-key suite has an
 existing Unix file-permission assertion that fails under Windows.
 
-Live deployment and real-account/provider end-to-end verification have not
-been performed. The backend identity endpoint must be deployed before the new
-Owl service; the current Owl process-local limiter/guard supports one worker.
+The backend, website, and standalone Owl service have been deployed. CAMEL-AI
+engine knowledge was added to Owl's knowledge pack on 2026-09-13. No functional
+provider chat or real user run was performed as part of that knowledge update;
+deployment records are in [production-deployment](production-deployment.md).
+The current Owl process-local limiter/guard supports one worker.

@@ -5,9 +5,10 @@ import toolReference from '../../../../docs/assistant/knowledge/tool-reference.m
 import diagnosticPlaybooks from '../../../../docs/assistant/knowledge/diagnostic-playbooks.md?raw'
 import fpfPresetQualityDoctrine from '../../../../docs/assistant/knowledge/fpf-preset-quality-doctrine.md?raw'
 import engineSelectionAndPresetStrategy from '../../../../docs/assistant/knowledge/engine-selection-and-preset-strategy.md?raw'
+import camelOwlEngine from '../../../../docs/assistant/knowledge/camel-owl-engine.md?raw'
 import currentProjectStatus from '../../../../docs/assistant/knowledge/current-project-status.md?raw'
 
-export const ASSISTANT_KNOWLEDGE_VERSION = 'ACM_ASSISTANT_KNOWLEDGE_PACK_V3'
+export const ASSISTANT_KNOWLEDGE_VERSION = 'ACM_ASSISTANT_KNOWLEDGE_PACK_V4'
 export const ASSISTANT_KNOWLEDGE_MARKER = ASSISTANT_KNOWLEDGE_VERSION
 
 const DEFAULT_MAX_SYSTEM_MESSAGE_CHARS = 180_000
@@ -111,6 +112,14 @@ export const ASSISTANT_KNOWLEDGE_DOCS: AssistantKnowledgeDoc[] = [
     required: true,
     allowTruncation: true,
   },
+  {
+    id: 'camel-owl-engine',
+    title: 'CAMEL-AI OWL preset engine',
+    sourcePath: 'docs/assistant/knowledge/camel-owl-engine.md',
+    content: camelOwlEngine,
+    required: true,
+    allowTruncation: true,
+  },
 ]
 
 export const ASSISTANT_KNOWLEDGE_TOPICS: AssistantKnowledgeTopic[] = [
@@ -137,6 +146,12 @@ export const ASSISTANT_KNOWLEDGE_TOPICS: AssistantKnowledgeTopic[] = [
     title: 'Engine selection and preset strategy',
     description: 'Provisional starting heuristics for choosing engines and building small testable presets.',
     documentId: 'engine-selection-and-preset-strategy',
+  },
+  {
+    id: 'camel-owl-engine',
+    title: 'CAMEL-AI OWL preset engine',
+    description: 'What the APICostX OWL generation engine does, how it differs from Allie Owl, and its implementation limits.',
+    documentId: 'camel-owl-engine',
   },
   {
     id: 'website-tools',

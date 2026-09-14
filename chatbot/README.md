@@ -21,6 +21,10 @@ files, individual tool descriptions, and Allie mascot assets. These are kept
 separate from the private infrastructure and operational runbooks that remain
 out of the public repository.
 
+The CAMEL-AI OWL knowledge topic describes the configured engine design and
+limitations. It is not proof of output quality or a successful real run; the
+adapter health check verifies configured paths, not the whole execution path.
+
 The website assistant has page-session authority. The Owl server has its own
 API-key boundary. The Backend API remains the resource API. These source areas
 are included for transparency and integration development; the public SDKs,

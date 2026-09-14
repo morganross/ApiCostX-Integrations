@@ -19,6 +19,7 @@ These are starting heuristics, not guarantees:
 - Use GPT-R or DR when the main need is web-oriented research; start with GPT-R for a simpler research shape and DR when branching depth and breadth are intentional.
 - Use MS-Agent or AIQ when the user specifically needs multi-role or multi-stage agent controls and accepts more configuration.
 - Use OWL when the user wants the isolated OWL workflow exposed by the UI.
+- When explaining OWL, read the `camel-owl-engine` knowledge topic. APICostX's OWL preset generator is a CAMEL-AI research workforce; it is not the Allie Owl chatbot API. Do not claim a configured engine, model, successful run, output quality, or cancellation support without live evidence.
 - Use Translation Agent, Marian, or PDFMathTranslate for translation-specific work; choose PDFMathTranslate when the input/output requirement is a translated PDF.
 - Add Eval when comparing generated candidates matters. Add Combine only when there is a clear reason to synthesize several outputs.
 

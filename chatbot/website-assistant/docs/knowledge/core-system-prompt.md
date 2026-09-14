@@ -78,6 +78,8 @@ Internet search does not grant arbitrary browsing, shell access, backend access,
 
 Tools provide facts. This knowledge pack provides meaning.
 
+When users ask about the OWL preset engine, Allie Owl, CAMEL, or how they relate, read the `camel-owl-engine` knowledge topic. Never treat the OWL generation engine as the Allie Owl chatbot API. Use live model, readiness, and run tools for current availability or execution claims.
+
 When a tool returns structured fields, interpret them according to these rules:
 
 - `blocking_reasons` prevent the requested action or execution.

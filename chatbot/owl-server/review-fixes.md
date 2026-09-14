@@ -1,13 +1,15 @@
 # Chatbot review fixes
 
-Date: 2026-09-07
+Date: 2026-09-13
 
 ## Scope and result
 
 This change addresses the 28 findings from the local chatbot review across
 `acm-allie-owl`, `acm-wordpress-plugin-run-count-fix`, and
-`acm2-execution-reliability-local`. It changes local source and adds regression
-checks; it is not evidence of a live deployment or a successful production chat.
+`acm2-execution-reliability-local`. The client, website, backend, and Owl
+changes were deployed on 2026-09-08; current service details are recorded in
+`production-deployment.md`. Deployment is not evidence of a successful
+production conversation or run.
 The website assistant, standalone Owl service, and existing resource API remain
 separate products/components with explicit integration contracts.
 
@@ -63,9 +65,9 @@ backslashes, dot segments, query/hash suffixes and the sibling API clients.
 
 ## Operational boundaries and remaining validation
 
-1. Deploy the backend identity endpoint before enabling the new Owl build;
-   missing or malformed identity fails closed, without reverting to key-only
-   ownership. Backend Redis is required for launches that supply retry keys.
+1. The backend identity endpoint is deployed. Missing or malformed identity
+   fails closed, without reverting to key-only ownership. Backend Redis is
+   required for launches that supply retry keys.
 2. The current Owl limiter and conversation guard support one service process;
    distributed leases/limits remain necessary before multiple Owl workers or
    replicas. This change does not claim cross-process conversation locking.
@@ -78,11 +80,26 @@ backslashes, dot segments, query/hash suffixes and the sibling API clients.
 5. Large mutable reads can change between pages; callers should re-read if an
    object changed during pagination. The transport does not claim snapshot
    isolation for mutable log/content pages.
-6. Live provider authentication, actual website conversations, real Redis
-   persistence, reload behavior, and cross-account production tests remain to
-   be verified in a coordinated deployment. Mock checks cannot prove them.
+6. Live provider authentication, website conversations, Redis receipt replay,
+   and cross-account behavior have not been functionally exercised since the
+   deployment. Mock checks cannot prove them.
 7. The 28-action contract covers the reviewed content/preset/run gaps, not an
    exhaustive claim that every website function has an Owl action; Flow Lab and
    unrelated account-management features remain outside this implementation.
 8. The existing build emits chunk-size and dependency browser-externalization
    warnings; a successful bundle is not a browser end-to-end test.
+
+## OWL engine knowledge (2026-09-13)
+
+The backend source contains an `OwlAdapter` and a separate JSON bridge. The
+deployed runtime inspected on the backend worker contains CAMEL-AI 0.2.84 and
+implements a CAMEL `Workforce` with task/coordinator agents plus configured
+search workers. It exposes DuckDuckGo search only and deliberately does not add
+browser, shell, or file-write tools. The runtime source checks APICostX pricing
+before provider calls and requires token usage to meter a result. In the model
+registry snapshot checked on 2026-09-13, `openai:gpt-5-mini` is enabled for OWL.
+
+These details explain the implementation, not a successful user run. The
+adapter cancellation method is currently a no-op; readiness checks inspect
+configuration and paths rather than proving the CAMEL workflow executes. The
+standalone Allie Owl API is a separate product from this OWL preset engine.
