@@ -46,22 +46,24 @@ the release commit identifies the reconciled reviewable branch.
 ## Website CopilotKit and LangGraph runtime
 
 - Repository: `morganross/acm-copilot-runtime`
-- Canonical release commit: `cb284aa` (`release/chatbot`)
+- Canonical release commit: `5fb6518` (`release/chatbot`)
 - Deployed source checkout: `/opt/acm-copilot`
 - Source hashes:
-  - `runtime/src/index.ts`: `2b49c95fba312958282de32382a6ec5769b5724279b4f17d9134fe7693023371`
+  - `runtime/src/index.ts`: `9b8df91d1f82fc4a8586f9c0ae724ce55006eeed85417ee100e47446a5f80c94`
   - `runtime/src/config.ts`: `911b2d06d55f77142c10c636ef37cf09d413308ec66071b3bf23f3c8b6bea901`
-  - `runtime/src/perUserRunLimiter.ts`: `548dc64b222ac8c55d1a2591bc4f4172a33cd91815e06797943602542098ce88`
+  - `runtime/src/perUserRunLimiter.ts`: `606a0699d4cdc74026fb1ec56085b9525c5faacd5e0b3e3edc796c0411dc4fb6`
 - Built runtime hashes:
-  - `runtime/dist/index.js`: `a2d44e188df33dc46038fd8caeb1842fedd1bb641349d961486c4a799e8176bf`
+  - `runtime/dist/index.js`: `0d67d467f6ce76c8effb1f5c0a810cf8a9b653ae2351c5ac17d284b0fd8c507f`
   - `runtime/dist/config.js`: `fdc6a367d316d509f87a0acd107e91a3ad682cab8f5cdda72120a4eab6686b94`
-  - `runtime/dist/perUserRunLimiter.js`: `ccc482c69b24e695da719b5c3cf0a3199c6673120269d0b586d776dfbd608ca8`
+  - `runtime/dist/perUserRunLimiter.js`: `1ead0081c0b4e2803f7c738310135f4121cb03dafd69be18a2ea21f9bcad43ba`
 - Runtime health after restart:
   - model: `openai:gpt-5.6-luna`
   - reasoning effort: `high`
   - backend: `langgraph`
-  - per-user model turns: 20 per rolling minute
-  - concurrent model runs: 2 per user
+  - per-user costly assistant requests: 20 per rolling minute
+  - concurrent costly assistant requests: 2 per user
+  - covered entrypoints: model runs, suggestions, direct assistant web search,
+    and transcription
   - thread identity: verified user plus browser conversation
 
 ## Standalone Allie Owl developer product
@@ -82,7 +84,7 @@ the release commit identifies the reconciled reviewable branch.
 - Frontend TypeScript and Vite compilation completed; singleton build check
   passed; shared actions and assistant knowledge checks passed.
 - Backend focused suite: 41 passed, 2 skipped.
-- CopilotKit runtime: 17 passed in Node 24, including two new limiter tests.
+- CopilotKit runtime: 18 passed in Node 24, including limiter and costly-entrypoint tests.
 - Standalone Owl: 18 passed during the review validation.
 - Public website Allie health returned HTTP 200.
 - Public backend API root and health returned HTTP 200 through Cloudflare while
