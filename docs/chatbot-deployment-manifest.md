@@ -33,14 +33,15 @@ the release commit identifies the reconciled reviewable branch.
 ## APICostX backend
 
 - Repository: `morganross/acm2`
-- Canonical release commit: `797c88b` (`release/chatbot`)
+- Canonical release commit: `6235817` (`release/chatbot`)
 - Release history: `fix/execution-reliability` was merged with `origin/main`.
 - Deployed source checkout: `/opt/acm2/acm2`
-- `app/api/router.py`: `89ac28b4a6afd16944eabd18f34a874c254948dcad851636bb1984b33a21fea8`
+- `app/api/router.py`: `a9ae26d6fd0c804119da1d7883954c3fe39b1e29e2a463f60b26fb0310a8de6e`
 - API child process was reloaded after Redis reported no queued or executing jobs.
 - Local and public `/api/health` returned HTTP 200 after reload.
-- `/api/assistant-advanced/capabilities` returned HTTP 404.
-- `/api/internal/assistant-advanced/agent` returned HTTP 404.
+- The committed router registers all six Advanced public/internal paths.
+- Public `/api/assistant-advanced/capabilities` returns HTTP 401 without
+  credentials, confirming route presence and authentication enforcement.
 - Public API root reported service `ACM2`, version `2.0.0`.
 
 ## Website CopilotKit and LangGraph runtime

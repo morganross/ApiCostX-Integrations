@@ -12,11 +12,17 @@ typed tools in the logged-in browser. The frontend still calls this path
 `basic` internally, but that label now points to the unified LangGraph-backed
 assistant; it does not describe the original simple bot accurately.
 
-The old Advanced assistant is retired from the user experience. Its frontend,
-backend REST-thread, LangGraph, and website-bridge code still exists, and the
-backend endpoint is still configured. The live frontend explicitly sets
-`advancedModeAvailable = false`, so users cannot select that path. It is
-dormant legacy/rollback code, not a second active product.
+The old Advanced assistant is retired as a user-selectable mode. Its frontend,
+backend REST-thread, LangGraph, and website-bridge code still exists, and its
+backend routes remain required by live frontend compatibility paths. The live
+frontend explicitly sets `advancedModeAvailable = false`, so users cannot
+select that mode; this flag is not evidence that the routes are unused.
+
+Operational correction, 2026-09-22: removing both Advanced route groups caused
+a functional outage while backend health continued to return 200. The routes
+were restored from the committed router and are now protected by a regression
+test. Do not remove them until live request tracing proves there are no callers
+and the frontend dependency has been migrated.
 
 The **Allie Owl API** is a second active chatbot product for developers. It is
 conceptually the API-authorized counterpart of website Allie, but it is not a
@@ -244,10 +250,10 @@ future docs and prompts must use these full names:
 2. **Allie Owl API** — separate developer chatbot service, using the user's
    API key and typed APICostX Backend API adapters.
 
-### Dormant or rollback code
+### Compatibility and rollback code
 
-1. The old Advanced frontend mode, bridge, REST client, backend thread service,
-   and backend graph remain in source.
+1. The old Advanced frontend mode is hidden, but its bridge, REST client,
+   backend thread service, graph, and routes remain compatibility dependencies.
 2. The current frontend hard-disables Advanced with
    `advancedModeAvailable = false`.
 3. The old Built-in Copilot runtime remains a configuration rollback from the
@@ -259,7 +265,7 @@ future docs and prompts must use these full names:
 | Component | User-facing status | Code status |
 |---|---|---|
 | Original Basic assistant behavior | Replaced by unified LangGraph Allie | Frontend shell/names reused; Built-in backend retained as rollback |
-| Separate Advanced assistant | Retired and unavailable in current UI | Frontend/backend code and endpoint remain |
+| Separate Advanced assistant | Not user-selectable | Frontend/backend compatibility code and routes remain active dependencies |
 | Unified website Allie | Active | Current production path |
 | Allie Owl API | Active separate product | Independent service and state |
 
@@ -272,7 +278,7 @@ should be used consistently in future code, documentation, support, and UI:
 |---|---|---|
 | Website Allie | The one assistant visible inside the logged-in APICostX website | Basic bot, Advanced bot, Owl API |
 | Unified Allie runtime | CopilotKit runtime plus the active Python LangGraph agent | Basic backend |
-| Legacy Advanced assistant | Disabled REST-thread and website-bridge experiment | Current Allie |
+| Advanced compatibility lane | Hidden REST-thread and website-bridge path still used by live frontend code | Current visible Allie identity |
 | Built-in runtime agent | Configuration rollback behind the Copilot runtime | A second active chatbot |
 | Allie Owl API | The independent OpenAI-shaped developer chatbot | Website Allie, Advanced mode |
 | APICostX Backend API | The resource API used by website and developer integrations | Owl API |
@@ -280,16 +286,15 @@ should be used consistently in future code, documentation, support, and UI:
 
 The word `basic` should now be treated as implementation debt. It identifies the
 frontend branch through which unified Allie is mounted, not a simpler model or
-a separate user-visible assistant. The word `advanced` should refer only to the
-dormant legacy path unless a document is explicitly discussing its historical
-design contribution.
+a separate user-visible assistant. The word `advanced` identifies a hidden
+compatibility lane and its historical design; it must not be treated as unused.
 
 ## Detailed architecture comparison
 
 | Property | Original Basic | Legacy Advanced | Unified website Allie | Allie Owl API |
 |---|---|---|---|---|
 | User surface | Website assistant mode | Website assistant mode | Single website assistant | External API, SDK, CLI, MCP |
-| Current status | Behavior replaced | Disabled | Active | Active |
+| Current status | Behavior replaced | Hidden UI; compatibility routes required | Active | Active |
 | Chat UI | CopilotKit React | Shared panel with separate mode | CopilotKit React | Client-owned UI or terminal |
 | Reasoning runtime | CopilotKit built-in agent | Backend LangGraph service | Python LangGraph behind CopilotKit | Independent Owl model/tool loop |
 | Product-data authority | Logged-in browser tools | Logged-in browser bridge | Logged-in browser tools | User API key through Backend API |
@@ -679,15 +684,15 @@ These are historical acceptance facts, not perpetual uptime guarantees.
 - That every external OpenAI-compatible client works with Owl.
 - That multiple Owl service replicas are safe.
 - That current provider/model availability matches an older fixture.
-- That dormant Advanced APIs can be removed without data migration.
+- That Advanced APIs can be removed because the visible mode is disabled.
 
 ## Current architectural debt
 
 1. **Misleading `basic` naming.** The active unified path still uses Basic-era
    names in state, configuration, helpers, and endpoint objects.
-2. **Dormant Advanced code.** The UI, frontend REST client, bridge, backend
-   routes, database models, services, and graph remain even though the mode is
-   disabled.
+2. **Advanced compatibility dependency.** The selector is disabled, while the
+   frontend REST client, bridge, backend routes, database models, services, and
+   graph still participate in live behavior.
 3. **Multiple prompt copies.** Website frontend knowledge, Copilot runtime
    prompt, Python agent prompt, legacy Advanced prompt, and Owl prompt can drift.
 4. **Multiple tool catalogs.** Canonical shared actions coexist with older
@@ -708,12 +713,13 @@ structure in small, reviewable stages:
 1. Rename the active frontend mode and configuration from `basic` to `unified`
    or remove the mode abstraction entirely.
 2. Remove the Basic/Advanced preference from settings and bootstrap payloads.
-3. Confirm no production frontend request reaches `/api/assistant-advanced`.
-4. Export or archive any legacy Advanced-only conversations that must be kept.
-5. Remove `AdvancedWebsiteToolBridge`, `assistantAdvanced.ts`, and dormant
-   Advanced branches from `AssistantPanel`.
-6. Deprecate and then remove backend Advanced routes, models, services, and
-   graph code after the retention decision.
+3. Add request telemetry for `/api/assistant-advanced` and its internal bridge,
+   preserving user privacy while identifying callers and required operations.
+4. Migrate every observed frontend dependency to the unified path and prove
+   parity with contract and browser tests.
+5. Export or archive any Advanced-only conversations that must be kept.
+6. Remove Advanced frontend/backend code only after telemetry shows no callers,
+   the dependency migration is deployed, and a rollback plan exists.
 7. Keep the Built-in Copilot agent only as an explicitly documented rollback,
    or remove it after a separate rollback plan exists.
 8. Generate website and Owl action schemas/docs from one reviewed contract.
@@ -736,8 +742,8 @@ are true:
 - docs describe one website assistant without mode qualifications;
 - monitoring and alerts identify website Allie and Allie Owl separately.
 
-Until then, **retired from use** is accurate and **removed from the codebase**
-is not.
+Until then, **retired as a user-selectable mode** is accurate; **unused** and
+**safe to remove** are not.
 
 ## Common questions answered
 
@@ -811,8 +817,8 @@ current.
 1. `acm-wordpress-plugin/docs/assistant/one-allie-implementation-plan.md`
    - The clearest statement of the unification decision, target architecture,
      rollout, rollback, and definition of done.
-   - Its deletion goals are not all complete because dormant Advanced code and
-     old `basic` naming remain.
+   - Its deletion goals are not all complete because Advanced compatibility
+     dependencies and old `basic` naming remain.
 
 2. `acm-copilot-runtime/docs/langgraph-production.md`
    - The best concise description of the active website request path and its
@@ -871,10 +877,11 @@ Three qualifications are necessary:
    webhooks.
 2. Allie Owl is an independent implementation derived from the same product
    concepts, not a byte-for-byte copy with hooks swapped out.
-3. The old Basic/Advanced code has not been fully removed: Advanced is disabled
-   in the UI, and the unified path still carries the internal name `basic`.
+3. The old Basic/Advanced code has not been fully removed: Advanced is hidden
+   in the UI but its routes remain required, and the unified path still carries
+   the internal name `basic`.
 
-The assistant's earlier conclusion that two old chatbots were still active was
-wrong because it inferred runtime activation from dormant source files. The
-correct current count is **two active chatbot products**: one unified website
-Allie and one separate Allie Owl developer API.
+The correct product count remains **two active chatbot products**: one unified
+website Allie and one separate Allie Owl developer API. Internally, website
+Allie still depends on an Advanced compatibility lane; product identity and
+route-level dependency are different questions.
