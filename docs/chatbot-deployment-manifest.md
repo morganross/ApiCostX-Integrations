@@ -10,21 +10,21 @@ existing application repository.
 ## Website frontend
 
 - Repository: `morganross/acm-wordpress-plugin`
-- Canonical release commit: `af694a2` (`release/chatbot`)
+- Canonical release commit: `6dff963` (`release/chatbot`)
 - Release history: the prior assistant branch was merged with `origin/main`
   before the hardening commits.
 - Deployed source checkout: `/home/ubuntu/acm-wordpress-plugin`
 - Deployed source hashes:
   - `ui/src/api/assistantDevLogger.ts`: `b3df3c8a60bfc727b881f2860ed4bd078c18e57efe92f1db1a162f1aacd50a87`
-  - `ui/src/components/assistant/useAssistantPageTools.ts`: `0d8ce9eb0df76a0b58811fab939342d77d9198abcf38a3699c77797f8a088361`
+  - `ui/src/components/assistant/useAssistantPageTools.ts`: `939191cfe2f81a30ba86fe371a4f1d8001c0ea6e1811d94aa8cf1e64c9006608`
   - `acm2-integration.php`: `7b5941ebc2633c4e29dd850505499f2990a6019b22441b61c0a6eab2dfe389af`
 - Deployed build:
-  - `assets/react-build/index.html`: `eaf49f17f8cb899e7236d9e6de5e0046fe661ababe64f1e74942727c76924aa8`
-  - `assets/index-CLr3fLh2.js`: `bea8db4604861881c346f880a4fbd69990c11120bb749df1327859e1323acd9a`
-  - `assets/AssistantRoot-BBxTVrlz.js`: `c7b123619ae3caa8f9a2e0633aa7fcb211ee4e2ca0cbda66a3d836bc9730ce57`
-- Public `/app/` referenced `index-CLr3fLh2.js` after deployment.
+  - `assets/react-build/index.html`: `c4bc077c7d188db51b092956887de977a95fae84fbad93da0ae585444aff6ec6`
+  - `assets/index-C7lCx4Bq.js`: `e3eceae7e7ea2fb911db4a62eb22b914e321fb0a90591630700ce6b69a086f8f`
+  - `assets/AssistantRoot-B27RSEnz.js`: `ff17efbb053c0f73390ce30abb3a6ee161229772d15b0bec900afabcec0770ea`
+- Public `/app/` referenced `index-C7lCx4Bq.js` after deployment.
 - Public bootstrap reported assistant development logging disabled.
-- The deployed assistant bundle contains the page-owned approval prompt.
+- This deployment did not change assistant tool confirmation behavior.
 
 The live frontend checkout contains pre-existing changes beyond this release
 branch. The deployed hashes above identify the actual running source/build;
