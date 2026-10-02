@@ -24,12 +24,13 @@ The originally advertised `assistant.apicostx.com` still has no public DNS recor
 ## Verification
 
 - Seven history-repair regressions pass locally and against deployed Python dependencies, exercising the actual LangChain Responses formatter: raw/non-standard orphan calls, partial parallel results, out-of-order results, duplicates, text preservation and idempotence.
-- Eleven frontend regressions pass locally and on the server: reply detection, Markdown rendering, HTML/link/image safety, exact/ambiguous lookup, lookup limits and invalid IDs.
-- The live production build passes TypeScript, knowledge/tool declaration checks, the existing OWL configuration contract, and asset-singleton checks. Entry: `index-DOmypGIe.js`; assistant chunk: `AssistantRoot-B3oA3t9n.js`.
-- Entry SHA-256: `0c2b5f24622632419135d3e7ec6eccc8d5130a0b447d930ca1181932d1d202ef`.
-- Assistant chunk SHA-256: `02a369a4cd7116eab44f5e9c1ac4a358bc9aa82b31018120f6c1d2b9630b2169`.
+- Twelve frontend regressions pass on the server: reply detection, alert placement outside the scrolling history, Markdown rendering, HTML/link/image safety, exact/ambiguous lookup, lookup limits and invalid IDs. The first eleven also passed locally.
+- The final live production build passes TypeScript, knowledge/tool declaration checks, the existing OWL configuration contract, and asset-singleton checks. Entry: `index-Dc3E7Ae1.js`; assistant chunk: `AssistantRoot-G60apbJ5.js`.
+- Entry SHA-256: `4e5311b0d70a6c29e568099ff5b3276e6dffe60599eba646541b3533e1312706`.
+- Assistant chunk SHA-256: `9464ba0dfe8c21c069cfff249ef8ba74f13f7dc2f95e146aa5409cc3a508d49e`.
 - A previously interrupted website conversation completes a new saved-preset inspection with fresh tool evidence; the visible New draft remains selected. A deliberately nonexistent preset produces an honest failure answer instead of hanging or claiming success.
 - A browser-only blocked chat request produces the visible failure alert; request blocking is removed immediately afterward. Production services were not stopped to simulate this failure.
+- Screenshot review caught the original error banner scrolling offscreen. The final banner sits outside the history viewport and its visible bounds were verified at y=142–234 pixels. Normal chat resumes afterward with `RECOVERY_OK`, and another reload preserves that answer.
 - Existing answers visibly render semantic Markdown after reload. Reauthentication and reload restore persisted history. No preset was saved or executed during these checks.
 - Twenty standalone Owl tests pass locally. Python SDK tests verify the proxy prefix and API-key header for default/overridden URLs. TypeScript SSE verification covers the default URL, auth header, split lines and multibyte characters.
 - Public Owl health returns 200; unauthenticated models returns 401. Backend and website assistant health remain 200. Nginx validation passes before reload.
@@ -37,6 +38,8 @@ The originally advertised `assistant.apicostx.com` still has no public DNS recor
 ## Deployment scope and remaining work
 
 Only the website agent was restarted. Frontend assets were published after a successful staged build and the existing watcher was resumed. Owl's proxy was reloaded without restarting Owl. Unrelated live source edits, backend compatibility routes, user data and credentials were preserved. The frontend patch script rejects unexpected overlapping source drift and preserves unrelated package scripts and knowledge text.
+
+GitHub patch commits: frontend `a618c5b` and `581d361` on `release/chatbot`; website runtime `80b2fce` on `release/chatbot`; canonical Owl `5e0ed20` on `main`; integrations first update `9f2adb7` on `main`. These are patch provenance, not a claim that the entire live checkout equals those commits. The frontend build manifest still names its existing base HEAD `f84792b`; unrelated live edits were deliberately preserved. Runtime source hashes: agent `2612ab84fdf607b06db25dd2d9b4214fe2fe8a169486182cb801d5385222f4a6`, history helper `75a676420be9ccb42877846c07c14ad7b0f86bfcffe5b32d91a658d4ea4276b2`. Metadata-only timing confirms one resumed text-only call reached its first token at 1,301 ms and finished at 1,775 ms; this is not a universal latency guarantee.
 
 The website catalog is now 80 declared tools (52 direct plus 28 shared), not proof that every tool or website feature is verified. Standalone Owl remains at 28 typed actions. Successful authenticated standalone chat is untested here because the test account has no API key; no replacement key was minted or bypass used. Scheduled automation coverage and broader OpenAI client compatibility remain product work.
 
