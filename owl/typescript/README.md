@@ -13,5 +13,5 @@ const answer = await owl.chat.completions.create({
 console.log(answer.choices[0].message.content)
 ```
 
-The SDK defaults to `https://assistant.apicostx.com/owl`. Keep the APICostX API
+The SDK defaults to `https://apicostx.com/__acm-copilot/owl`. Keep the APICostX API
 key in a server environment variable; do not use this SDK in browser code.

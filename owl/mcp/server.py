@@ -8,7 +8,7 @@ import urllib.request
 
 
 def call_api(path: str, body: dict | None = None, method: str = "POST") -> dict:
-    request = urllib.request.Request(os.environ.get("ALLIE_OWL_API_URL", "https://assistant.apicostx.com/owl").rstrip("/") + path, data=(json.dumps(body).encode() if body is not None else None), headers={"Authorization": "Bearer " + os.environ["APICOSTX_API_KEY"], "Content-Type": "application/json"}, method=method)
+    request = urllib.request.Request(os.environ.get("ALLIE_OWL_API_URL", "https://apicostx.com/__acm-copilot/owl").rstrip("/") + path, data=(json.dumps(body).encode() if body is not None else None), headers={"Authorization": "Bearer " + os.environ["APICOSTX_API_KEY"], "Content-Type": "application/json"}, method=method)
     with urllib.request.urlopen(request, timeout=90) as response: return json.load(response)
 
 

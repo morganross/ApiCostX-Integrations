@@ -10,7 +10,7 @@ The Owl clients are under `owl/`.
 The OpenAI-shaped endpoint is:
 
 ```text
-https://assistant.apicostx.com/owl/v1/chat/completions
+https://apicostx.com/__acm-copilot/owl/v1/chat/completions
 ```
 
 Use `conversation_id` for a continuing conversation. On a write request, Owl

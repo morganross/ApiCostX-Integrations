@@ -1,5 +1,7 @@
 # APICostX chatbot deployment manifest
 
+Latest repair: [October 2 live reliability and public API update](allie-recovery-2026-10-02.md). The details below are the September 22 checkpoint, not the current public Owl URL or frontend build hashes.
+
 Recorded: 2026-09-22T12:46:31Z
 
 This manifest records the source branches, deployed file hashes, built assets,

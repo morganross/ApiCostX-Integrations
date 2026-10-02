@@ -5,7 +5,7 @@ Official public clients for two separate APICostX products:
 | Product | API entry point | Purpose |
 |---|---|---|
 | APICostX Backend API | `https://api.apicostx.com` | Presets, Content Library, runs, outputs, models, and account data |
-| Allie Owl Chatbot API | `https://assistant.apicostx.com/owl/v1` | OpenAI-shaped conversations and user-authorized APICostX actions |
+| Allie Owl Chatbot API | `https://apicostx.com/__acm-copilot/owl/v1` | OpenAI-shaped conversations and user-authorized APICostX actions |
 
 These are separate API surfaces. A backend client does resource operations
 directly; an Owl client sends conversational messages to Allie Owl. Both use a
@@ -52,7 +52,7 @@ npm install @apicostx/allie-owl
 ```
 
 The backend SDK uses `https://api.apicostx.com` by default. The Owl SDK uses
-`https://assistant.apicostx.com/owl` as its API base, so its chat endpoint is
+`https://apicostx.com/__acm-copilot/owl` as its API base, so its chat endpoint is
 `/v1/chat/completions`.
 
 ## MCP configuration
@@ -81,7 +81,7 @@ Allie Owl MCP:
       "command": "allie-owl-mcp",
       "env": {
         "APICOSTX_API_KEY": "${APICOSTX_API_KEY}",
-        "ALLIE_OWL_API_URL": "https://assistant.apicostx.com/owl"
+        "ALLIE_OWL_API_URL": "https://apicostx.com/__acm-copilot/owl"
       }
     }
   }

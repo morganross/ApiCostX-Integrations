@@ -31,7 +31,7 @@ class _Chat:
 
 
 class AllieOwl:
-    def __init__(self, api_key: str, base_url: str = "https://assistant.apicostx.com/owl", *, timeout: float = 60.0, transport: httpx.BaseTransport | None = None):
+    def __init__(self, api_key: str, base_url: str = "https://apicostx.com/__acm-copilot/owl", *, timeout: float = 60.0, transport: httpx.BaseTransport | None = None):
         self.api_key = api_key
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout

@@ -24,7 +24,7 @@ def main() -> None:
     args = parser.parse_args()
     key = os.getenv("APICOSTX_API_KEY", "")
     if not key: parser.error("APICOSTX_API_KEY is required")
-    client = AllieOwl(key, os.getenv("ALLIE_OWL_API_URL", "https://assistant.apicostx.com/owl"))
+    client = AllieOwl(key, os.getenv("ALLIE_OWL_API_URL", "https://apicostx.com/__acm-copilot/owl"))
     if args.command == "models": print(json.dumps(client.models(), indent=2)); return
     if args.command == "conversations": print(json.dumps(client.conversations(), indent=2)); return
     if args.command == "usage": print(json.dumps(client.usage(args.days), indent=2)); return

@@ -5,7 +5,7 @@ export class AllieOwlError extends Error { constructor(message: string, public r
 
 export class AllieOwl {
   readonly chat = { completions: { create: (body: ChatCompletionRequest) => body.stream ? Promise.resolve(this.stream(body)) : this.request('/v1/chat/completions', { method: 'POST', body: JSON.stringify(body) }) } };
-  constructor(private readonly apiKey: string, private readonly baseUrl = 'https://assistant.apicostx.com/owl') {}
+  constructor(private readonly apiKey: string, private readonly baseUrl = 'https://apicostx.com/__acm-copilot/owl') {}
   async request(path: string, init: RequestInit = {}): Promise<any> {
     const response = await fetch(this.baseUrl.replace(/\/$/, '') + path, { ...init, headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.apiKey}`, ...(init.headers || {}) } });
     const data = await response.json();

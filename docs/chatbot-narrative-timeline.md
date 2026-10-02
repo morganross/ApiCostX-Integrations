@@ -186,7 +186,7 @@ From 2026-09-06, APICostX built a separate conversational developer product:
 - `fc34039` — harden authentication, tools, conversations, and clients;
 - `bd8ca1c` — record production activation and the public API address.
 
-The service is available under:
+The September deployment advertised the address below. It subsequently lacked public DNS; the October 2 repair uses `https://apicostx.com/__acm-copilot/owl/v1` instead (see `allie-recovery-2026-10-02.md`).
 
 ```text
 https://assistant.apicostx.com/owl/v1
